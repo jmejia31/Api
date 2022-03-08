@@ -21,6 +21,20 @@ var mysqlconnection = mysql.createConnection({
     multipleStatements: true
 })
 
+//Consultando datos tabla proveedores
+app.get('/TBL_NOTAS_AUDIO:',(req,res)=>{  
+    let emp = req.body;  
+    var sql = "SET @PI_COD_NOTAS_AUDIO = ?; \
+    CALL SELECT_TBL_NOTAS_AUDIO(@PI_COD_NOTAS_AUDIO);"  
+    mysqlconnection.query(sql,[emp.PI_COD_NOTAS_AUDIO],(err,rows,fields)=>{  
+        if(!err)   
+    res.json(rows);  
+    else  
+        console.log(err);  
+      
+})  
+});
+
 //test de conexion a base de datos
 
 mysqlconnection.connect((err)=>{
